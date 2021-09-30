@@ -40,5 +40,4 @@ def nextGeneration():
 
 
 if __name__ == '__main__':
-    print(tempArray)
     print(nextGeneration())
