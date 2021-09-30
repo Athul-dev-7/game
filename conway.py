@@ -1,23 +1,16 @@
-board     = [[0, 1, 0],
-             [0, 0, 1],
-             [1, 1, 1],
-             [0, 0, 0]
-             ]
-rows      = len(board)
-columns   = len(board[0])
-tempArray = [[0 for _ in range(columns)] for _ in range(rows)]
-
-
+#helper function check all its neighbors and update it to the tempArray
 def helper(row, column):
     count     = 0
     neighbors = [(0, 1), (0, -1), (-1, 0), (1, 0),
                 (1, 1), (-1, 1), (-1, -1), (1, -1)]
     
     for x, y in neighbors:
-        if 0 <= row+y < rows and 0 <= column+x < columns and board[row+y][column+x] == 1:
+        if 0 <= row+y < rows and 0 <= column+x < columns and presentGeneration[row+y][column+x] == 1:
             count += 1
-
-    if board[row][column] == 1:
+    return count
+            
+def rules(row,column,count):
+    if presentGeneration[row][column] == 1:
         if count < 2:
             return 0
         elif count in [2, 3]:
@@ -30,14 +23,40 @@ def helper(row, column):
             return 1
         else:
             return 0
+    
+    
+if __name__ == '__main__':  
+    rows                  = int(input("Enter number of rows : "))
+    columns               = int(input("Enter number of columns : "))    
+    presentGeneration     = []
+    nextGeneration        = [[0 for _ in range(columns)] for _ in range(rows)]
+    print("Enter the entries row-wise  ")
+
+    for i in range(rows):                               #taking input from the user
+        row = []
+        for j in range(columns):
+            row.append(int(input("Enter the value : ")))
+        presentGeneration.append(row)
+    print()
 
 
-def nextGeneration():
-    for row in range(rows):
+    for row in range(rows):                             #printing the present generation
         for col in range(columns):
-            tempArray[row][col] = helper(row, col)
-    return tempArray
+            print(presentGeneration[row][col],end=" ")
+        print()
+    print() 
+
+    for row in range(rows):                             #iterate through the presentGeneration using helper function
+        for col in range(columns):
+            nextGeneration[row][col] = rules(row, col,helper(row,col))    
 
 
-if __name__ == '__main__':
-    print(nextGeneration())
+    for row in range(rows):                             #printing the next generation 
+        for col in range(columns):
+            print(nextGeneration[row][col],end=" ")
+        print()
+
+
+
+
+    
