@@ -24,11 +24,10 @@ def rules(row,column,count):
         else:
             return 0
     
-    
-if __name__ == '__main__':  
+if __name__ == '__main__':
     rows                  = int(input("Enter number of rows : "))
-    columns               = int(input("Enter number of columns : "))    
-    presentGeneration     = []
+    columns               = int(input("Enter number of columns : "))  
+    presentGeneration     = []   
     nextGeneration        = [[0 for _ in range(columns)] for _ in range(rows)]
     print("Enter the entries row-wise  ")
 
